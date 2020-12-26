@@ -1,4 +1,4 @@
-package io.security.corespringsecurity.security.configs;
+package io.security.corespringsecurity.security.config;
 
 import io.security.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,21 +34,26 @@ public final class AjaxLoginConfigurer<H extends HttpSecurityBuilder<H>> extends
         if(authenticationManager == null){
             authenticationManager = http.getSharedObject(AuthenticationManager.class);
         }
+
         getAuthenticationFilter().setAuthenticationManager(authenticationManager);
         getAuthenticationFilter().setAuthenticationSuccessHandler(successHandler);
         getAuthenticationFilter().setAuthenticationFailureHandler(failureHandler);
 
         SessionAuthenticationStrategy sessionAuthenticationStrategy = http
                 .getSharedObject(SessionAuthenticationStrategy.class);
+
         if (sessionAuthenticationStrategy != null) {
             getAuthenticationFilter().setSessionAuthenticationStrategy(sessionAuthenticationStrategy);
         }
+
         RememberMeServices rememberMeServices = http
                 .getSharedObject(RememberMeServices.class);
+
         if (rememberMeServices != null) {
             getAuthenticationFilter().setRememberMeServices(rememberMeServices);
         }
-        http.setSharedObject(AjaxLoginProcessingFilter.class,getAuthenticationFilter());
+
+        http.setSharedObject(AjaxLoginProcessingFilter.class, getAuthenticationFilter());
         http.addFilterBefore(getAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

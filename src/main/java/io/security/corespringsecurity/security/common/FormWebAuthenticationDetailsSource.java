@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class FormWebAuthenticationDetailsSource implements AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> {
+
     @Override
-    public WebAuthenticationDetails buildDetails(HttpServletRequest request) {
-        return new FormWebAuthenticationDetails(request);
+    public WebAuthenticationDetails buildDetails(HttpServletRequest context) {
+        return new FormWebAuthenticationDetails(context);
     }
 }
